@@ -1,19 +1,27 @@
 package com.alian.learn.entity;
 
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 
 @Entity
+@Table(name = "Alian")
 public class Alian {
-    @jakarta.persistence.Id
-    @GeneratedValue
-    private Integer aid;
+    @Id
+    private int aid;
+    @Column(name = "name")
     private String name;
+    @Column(name = "tech")
     private String tech;
 
+    public int getAid() {
+        return aid;
+    }
 
-    public void setAid(Integer aid) {
+    public void setAid(int aid) {
         this.aid = aid;
     }
 
@@ -33,7 +41,12 @@ public class Alian {
         this.tech = tech;
     }
 
-    public Integer getAid() {
-        return aid;
+    @Override
+    public String toString() {
+        return "Alian{" +
+                "aid=" + aid +
+                ", name='" + name + '\'' +
+                ", tech='" + tech + '\'' +
+                '}';
     }
 }
