@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -72,5 +73,39 @@ public class AlianController {
         return "home.jsp";
     }
 
+    @GetMapping("/getAliansByTech")
+    public ModelAndView getAlianByTech(@RequestParam("tech") String tech) {
+        ModelAndView mv = new ModelAndView("/alianshow.jsp");
+        List<Alian> byTech = alianRepo.findByTech(tech);
+        StringBuilder builder = new StringBuilder("");
+        byTech.stream().iterator().forEachRemaining(alian -> {
+            builder.append(alian.toString());
+        });
+        mv.addObject("obj", builder);
+        return mv;
+    }
 
+    @GetMapping("/getAliansGTId")
+    public ModelAndView getAliansGTId(@RequestParam("id") int id) {
+        ModelAndView mv = new ModelAndView("/alianshow.jsp");
+        List<Alian> byTech = alianRepo.findByAidIsGreaterThan(id);
+        StringBuilder builder = new StringBuilder("");
+        byTech.stream().iterator().forEachRemaining(alian -> {
+            builder.append(alian.toString());
+        });
+        mv.addObject("obj", builder);
+        return mv;
+    }
+
+    @GetMapping("/getAliansByTechSorted")
+    public ModelAndView getAliansGTId(@RequestParam("tech") String tech) {
+        ModelAndView mv = new ModelAndView("/alianshow.jsp");
+        List<Alian> byTech = alianRepo.findByTechSorted(tech);
+        StringBuilder builder = new StringBuilder("");
+        byTech.stream().iterator().forEachRemaining(alian -> {
+            builder.append(alian.toString());
+        });
+        mv.addObject("obj", builder);
+        return mv;
+    }
 }
